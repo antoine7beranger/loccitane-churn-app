@@ -9,10 +9,23 @@ from NPS_impact.params import COMMONE_FEATURES, DATASET_SPECIFIC_FEATURES
 
 def load_artifacts():
     artifacts = {}
+
+    # ÉTAPE CRUCIALE : On récupère le chemin absolu du dossier 'model'
+    # os.path.dirname(__file__) donne le chemin vers NPS_impact/model/
+    base_path = os.path.dirname(os.path.abspath(__file__))
+
     for nps in ["EC", "RE", "CS"]:
+        # On construit le chemin complet vers chaque fichier
+        prep_name = f"preprocessor_{nps}_churn.pkl"
+        model_name = f"model_{nps}_churn.pkl"
+
+        # On joint le dossier 'model' au nom du fichier
+        prep_path = os.path.join(base_path, prep_name)
+        model_path = os.path.join(base_path, model_name)
+
         artifacts[nps] = {
-            "preprocessor": load_pickle(f"preprocessor_{nps}_churn.pkl"),
-            "model":        load_pickle(f"model_{nps}_churn.pkl"),
+            "preprocessor": load_pickle(prep_path),
+            "model":        load_pickle(model_path),
         }
     return artifacts
 
