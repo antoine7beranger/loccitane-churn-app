@@ -5,7 +5,7 @@ import pandas as pd
 from NPS_impact.model.predict import load_artifacts, predict
 
 # Configuration de la page
-st.set_page_config(page_title="L'Occitane - Churn Prevention", layout="wide")
+st.set_page_config(page_title="Churn Prevention", layout="wide")
 
 # --- STYLE L'OCCITANE ---
 st.markdown("""
@@ -31,7 +31,7 @@ def donner_recommandation(row):
         if row['CHURN_PROBA'] > 0.8:
             return "🔴 Alerte Critique : Contact immédiat"
         return "🟠 Risque modéré : Envoyer offre promo"
-    return "🟢 Client fidèle : Maintenir relation"
+    return "🟢 Client fidèle"
 
 # --- INTERFACE ---
 st.title("Tableau de Bord Prévention du Churn")
@@ -66,7 +66,6 @@ if uploaded_file is not None:
                 nb_churners = results[results['CHURN_PRED'] == 1].shape[0]
                 col1.metric("Clients à risque", nb_churners)
                 col2.metric("Taux de Churn estimé", f"{(nb_churners/len(results)*100):.1f}%")
-                col3.metric("Score NPS Moyen (Simulé)", "7.4/10")
 
                 # Table des résultats
                 st.subheader("📋 Liste des clients et actions recommandées")
@@ -77,7 +76,7 @@ if uploaded_file is not None:
                     return f'color: {color}; font-weight: bold'
 
                 st.dataframe(
-                    results[['VIP_ID', 'CHURN_PROBA', 'CHURN_PRED', 'RECOMMANDATION']]
+                    results[['VIP_ID', 'CHURN_PROBA', 'CHURN_PRED', 'SC_Status_NPS', 'ACHATS_DANS_FENETRE_PRE_NPS_12M', RECOMMANDATION']]
                     .style.applymap(color_churn, subset=['CHURN_PRED'])
                 )
 
@@ -86,7 +85,7 @@ if uploaded_file is not None:
                 st.download_button(
                     label="📥 Télécharger les prédictions (CSV)",
                     data=csv,
-                    file_name='predictions_churn_loccitane.csv',
+                    file_name='predictions_churn.csv',
                     mime='text/csv',
                 )
 
@@ -98,4 +97,4 @@ else:
 
 # --- FOOTER ---
 st.markdown("---")
-st.caption("Outil interne L'Occitane - Direction Marketing & CRM")
+st.caption("Outil interne - Direction Marketing & CRM")
