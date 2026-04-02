@@ -74,19 +74,18 @@ if uploaded_file is not None:
                 def color_churn(val):
                     color = '#ff4b4b' if val == 1 else '#28a745'
                     return f'color: {color}; font-weight: bold'
-                st.subheader("📋 Liste des clients et actions recommandées")
 
                 # On définit le dictionnaire de formatage
 # {1:.0%} -> multiplie par 100 et ajoute le signe % avec 0 décimale
 # {1:.0f} -> affiche le nombre avec 0 chiffre après la virgule
                 formatter = {
                              'CHURN_PROBA': '{:.0%}',
-                            'NPS_SCORE': '{:.0f}'    # Assure-toi que ta colonne s'appelle bien NPS_SCORE
+                             'NPS_SCORE': '{:.0f}'    # Assure-toi que ta colonne s'appelle bien NPS_SCORE
                 }
 
 # Affichage du tableau stylisé
                 st.dataframe(
-                results[['VIP_ID', 'NPS_TYPE', 'CHURN_PROBA', 'CHURN_PRED', 'RECOMMANDATION']]
+                results[['VIP_ID', 'NPS_TYPE', 'NPS_SCORE', 'CHURN_PROBA', 'CHURN_PRED', 'RECOMMANDATION']]
                 .style
                 .format(formatter)           # Applique le % et l'arrondi
                 .map(color_churn, subset=['CHURN_PRED']) # Garde tes couleurs
