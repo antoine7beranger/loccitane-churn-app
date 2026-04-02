@@ -80,12 +80,12 @@ if uploaded_file is not None:
 # {1:.0f} -> affiche le nombre avec 0 chiffre après la virgule
                 formatter = {
                              'CHURN_PROBA': '{:.0%}',
-                             'NPS_SCORE': '{:.0f}'    # Assure-toi que ta colonne s'appelle bien NPS_SCORE
+                             'SC_Status_NPS': '{:.0f}'    # Assure-toi que ta colonne s'appelle bien NPS_SCORE
                 }
 
 # Affichage du tableau stylisé
                 st.dataframe(
-                results[['VIP_ID', 'NPS_TYPE', 'SC_STATUS_NPS', 'CHURN_PROBA', 'CHURN_PRED', 'RECOMMANDATION']]
+                results[['VIP_ID', 'NPS_TYPE', 'SC_Status_NPS', 'CHURN_PROBA', 'CHURN_PRED', 'RECOMMANDATION']]
                 .style
                 .format(formatter)           # Applique le % et l'arrondi
                 .map(color_churn, subset=['CHURN_PRED']) # Garde tes couleurs
