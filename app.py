@@ -85,7 +85,7 @@ if uploaded_file is not None:
 
 # Affichage du tableau stylisé
                 st.dataframe(
-                results[['VIP_ID', 'NPS_TYPE', 'NPS_SCORE', 'CHURN_PROBA', 'CHURN_PRED', 'RECOMMANDATION']]
+                results[['VIP_ID', 'NPS_TYPE', 'SC_STATUS_NPS', 'CHURN_PROBA', 'CHURN_PRED', 'RECOMMANDATION']]
                 .style
                 .format(formatter)           # Applique le % et l'arrondi
                 .map(color_churn, subset=['CHURN_PRED']) # Garde tes couleurs
