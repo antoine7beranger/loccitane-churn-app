@@ -77,7 +77,7 @@ if uploaded_file is not None:
 
                 st.dataframe(
                     results[['VIP_ID', 'CHURN_PROBA', 'CHURN_PRED', 'SC_Status_NPS', 'ACHATS_DANS_FENETRE_PRE_NPS_12M', 'RECOMMANDATION']]
-                    .style.applymap(color_churn, subset=['CHURN_PRED'])
+                    .style.map(color_churn, subset=['CHURN_PRED'])
                 )
 
                 # Option d'export
